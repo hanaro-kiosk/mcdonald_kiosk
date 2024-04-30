@@ -27,4 +27,15 @@ public class AdminOrderController {
         return ResponseDto.successWithNoData();
     }
 
+    @GetMapping("/order/{id}")
+    public ResponseDto<OrderResponseDto> getOrderDetail(@PathVariable("id") Long id) {
+        return adminOrderService.orderDetail(id);
+    }
+
+    @DeleteMapping("/order/{id}")
+    public ResponseDto<Void> deleteOrder(@PathVariable("id") Long id) {
+        return adminOrderService.deleteOrder(id);
+    }
+
+
 }

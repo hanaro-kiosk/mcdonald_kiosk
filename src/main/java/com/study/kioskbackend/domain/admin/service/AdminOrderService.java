@@ -25,12 +25,23 @@ public class AdminOrderService {
         return orderRepository.findAll(paging).map(OrderResponseDto::toDto);
     }
 
-    public ResponseDto<Order> editOrder(Long idx, OrderEditRequestDto orderEditRequestDto) {
-        Order order = orderRepository.findById(idx).orElseThrow(()-> new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
+    public ResponseDto<Order> editOrder(Long id, OrderEditRequestDto orderEditRequestDto) {
+        Order order = orderRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
 
-        order = order.editOrder(idx,orderEditRequestDto);
+        order = order.editOrder(id,orderEditRequestDto);
         order = orderRepository.save(order);
         return ResponseDto.success(order);
+    }
+
+    public ResponseDto<OrderResponseDto> orderDetail(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(()->  new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
+        return ResponseDto.success(OrderResponseDto.toDto(order));
+    }
+
+    public ResponseDto<Void> deleteOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(()->  new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
+        order.deleteOrder(id);
+        return ResponseDto.successWithNoData();
     }
 
 

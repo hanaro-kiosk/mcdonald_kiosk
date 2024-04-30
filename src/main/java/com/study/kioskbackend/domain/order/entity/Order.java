@@ -45,5 +45,12 @@ public class Order {
                 .build();
     }
 
+    public Order deleteOrder(Long idx) {
+        return Order.builder()
+                .orderIdx(idx)
+                .isDeleted(true)
+                .build();
+    }
+
 
 }
