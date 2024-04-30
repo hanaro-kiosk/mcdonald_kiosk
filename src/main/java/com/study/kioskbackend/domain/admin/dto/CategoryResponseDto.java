@@ -1,7 +1,6 @@
 package com.study.kioskbackend.domain.admin.dto;
 
 import com.study.kioskbackend.domain.menu.entity.Category;
-import com.study.kioskbackend.domain.menu.repository.CategoryRepository;
 import lombok.*;
 
 @Getter

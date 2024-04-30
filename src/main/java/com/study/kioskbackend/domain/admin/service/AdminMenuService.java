@@ -1,7 +1,6 @@
 package com.study.kioskbackend.domain.admin.service;
 
 import com.study.kioskbackend.domain.admin.dto.CategoryResponseDto;
-import com.study.kioskbackend.domain.admin.dto.ImageUpdateRequestDto;
 import com.study.kioskbackend.domain.admin.dto.MenuResponseDto;
 import com.study.kioskbackend.domain.admin.dto.MenuUpdateRequestDto;
 import com.study.kioskbackend.domain.menu.entity.Category;
@@ -59,19 +58,25 @@ public class AdminMenuService {
                         .orElseThrow(() -> new IllegalArgumentException("카테고리가 존재하지 않습니다.")).getCategoryTitle());
     }
 
-    @Transactional
-    public Image updateImage(final Long imageIdx, ImageUpdateRequestDto dto){
+    @Transactional(readOnly = true)
+    public String findByImage(final Long imageIdx){
         Image image = imageRepository.findById(imageIdx)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이미지입니다."));
-        image.update(dto.getImageSrc());
-        return image;
+        return image.getImgUrl();
+    }
+
+    @Transactional
+    public void updateImage(final Long imageIdx, String newFileUrl){
+        Image image = imageRepository.findById(imageIdx)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이미지입니다."));
+        image.update(newFileUrl);
     }
 
     @Transactional
     public Menu updateMenu(final Long menuIdx, MenuUpdateRequestDto dto){
         Menu menu = menuRepository.findById(menuIdx)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
-        menu.update(dto.getMenuName(), dto.getMenuCategory(), dto.getMenuImgIdx(), dto.getMenuPrice(), dto.getMenuCalory());
+        menu.update(dto.getMenuName(), dto.getMenuCategory(), dto.getMenuPrice(), dto.getMenuCalory());
 
         return menu;
     }

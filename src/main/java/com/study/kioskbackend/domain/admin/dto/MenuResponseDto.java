@@ -1,7 +1,5 @@
 package com.study.kioskbackend.domain.admin.dto;
 
-import com.study.kioskbackend.domain.menu.entity.Category;
-import com.study.kioskbackend.domain.menu.entity.Image;
 import com.study.kioskbackend.domain.menu.entity.Menu;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
