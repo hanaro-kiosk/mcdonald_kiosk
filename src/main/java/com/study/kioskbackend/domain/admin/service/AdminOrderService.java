@@ -7,7 +7,6 @@ import com.study.kioskbackend.domain.order.entity.Order;
 import com.study.kioskbackend.domain.order.repository.OrderRepository;
 import com.study.kioskbackend.global.common.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,13 +21,13 @@ public class AdminOrderService {
 
     public Page<OrderResponseDto> getOrderList(int page) {
         Pageable paging = PageRequest.of(page, 5, Sort.by( Sort.Order.desc("orderTime")));
-        return orderRepository.findAll(paging).map(OrderResponseDto::toDto);
+        return orderRepository.findAllOrderList(paging).map(OrderResponseDto::toDto);
     }
 
     public ResponseDto<Order> editOrder(Long id, OrderEditRequestDto orderEditRequestDto) {
         Order order = orderRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
 
-        order = order.editOrder(id,orderEditRequestDto);
+        order.editOrder(id,orderEditRequestDto);
         order = orderRepository.save(order);
         return ResponseDto.success(order);
     }
@@ -41,6 +40,7 @@ public class AdminOrderService {
     public ResponseDto<Void> deleteOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(()->  new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
         order.deleteOrder(id);
+        orderRepository.save(order);
         return ResponseDto.successWithNoData();
     }
 

@@ -22,9 +22,8 @@ public class AdminOrderController {
     }
 
     @PatchMapping("/order/{id}")
-    public ResponseDto<Void> editOrder(@PathVariable("id") Long id, @RequestBody OrderEditRequestDto orderEditRequestDto) {
-        adminOrderService.editOrder(id,orderEditRequestDto);
-        return ResponseDto.successWithNoData();
+    public ResponseDto<Order> editOrder(@PathVariable("id") Long id, @RequestBody OrderEditRequestDto orderEditRequestDto) {
+        return adminOrderService.editOrder(id,orderEditRequestDto);
     }
 
     @GetMapping("/order/{id}")

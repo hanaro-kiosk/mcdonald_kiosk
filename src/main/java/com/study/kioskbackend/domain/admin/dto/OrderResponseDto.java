@@ -27,6 +27,7 @@ public class OrderResponseDto {
                 .orderCode(order.getOrderCode())
                 .orderPrice(order.getOrderPrice())
                 .orderNumber(order.getOrderNumber())
+                .orderStatus(order.getOrderStatus())
                 .orderTime(order.getOrderTime())
                 .build();
     }

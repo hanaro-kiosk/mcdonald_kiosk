@@ -37,19 +37,16 @@ public class Order {
 
     private Boolean isDeleted;
 
-    public Order editOrder(Long idx, OrderEditRequestDto req) {
-        return Order.builder()
-                .orderIdx(idx)
-                .orderPrice(req.getOrderPrice())
-                .orderCount(req.getOrderCount())
-                .build();
+    public void editOrder(Long idx, OrderEditRequestDto req) {
+        this.orderIdx=idx;
+        this.orderCount=req.getOrderCount();
+        this.orderPrice=req.getOrderPrice();
     }
 
-    public Order deleteOrder(Long idx) {
-        return Order.builder()
-                .orderIdx(idx)
-                .isDeleted(true)
-                .build();
+    public void deleteOrder(Long idx) {
+        this.orderIdx=idx;
+        this.isDeleted=true;
+
     }
 
 
