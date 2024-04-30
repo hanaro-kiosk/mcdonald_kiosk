@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,10 +37,12 @@ public class MenuService {
         int startPage = (((int) (Math.ceil((double) (pageable.getPageNumber() +1) / PAGE_DATA_COUNT))) -1) * PAGE_DATA_COUNT +1;
         int endPage = Math.min((startPage + PAGE_DATA_COUNT - 1), menusEntity.getTotalPages());
 
-        List<CategoryMenuResponseDto> menus = new ArrayList<>();
-        for(Menu menu:menusEntity){
-            menus.add(toCategoryMenuResponseDto(menu));
-        }
+        List<CategoryMenuResponseDto> menus =
+                menusEntity.stream().map((menu) -> CategoryMenuResponseDto.toCategoryMenuResponseDto(menu,
+                                imageRepository.findById(menu.getImgIdx())
+                                        .orElseThrow(() -> new IllegalArgumentException("이미지가 존재하지 않습니다"))))
+                                        .collect(Collectors.toList());
+
         return MenuListResponseDto.builder()
                 .startPage(startPage)
                 .endPage(endPage)
@@ -58,10 +61,12 @@ public class MenuService {
         int startPage = (((int) (Math.ceil((double) (pageable.getPageNumber() + 1) / PAGE_DATA_COUNT))) -1) * PAGE_DATA_COUNT +1;
         int endPage = Math.min((startPage + PAGE_DATA_COUNT - 1), menusEntity.getTotalPages());
 
-        List<CategoryMenuResponseDto> menus = new ArrayList<>();
-        for(Menu menu:menusEntity){
-            menus.add(toCategoryMenuResponseDto(menu));
-        }
+        List<CategoryMenuResponseDto> menus =
+                menusEntity.stream().map((menu) -> CategoryMenuResponseDto.toCategoryMenuResponseDto(menu,
+                                imageRepository.findById(menu.getImgIdx())
+                                    .orElseThrow(() -> new IllegalArgumentException("이미지가 존재하지 않습니다"))))
+                                    .collect(Collectors.toList());
+
         return MenuListResponseDto.builder()
                 .startPage(startPage)
                 .endPage(endPage)
@@ -69,16 +74,5 @@ public class MenuService {
                 .build();
     }
 
-    private CategoryMenuResponseDto toCategoryMenuResponseDto(Menu menu){
-        Image image = imageRepository.findById(menu.getImgIdx()).orElseThrow(
-                () -> new IllegalArgumentException("이미지가 존재하지 않습니다."));
 
-        return CategoryMenuResponseDto.builder()
-                .menuIdx(menu.getMenuIdx())
-                .menuName(menu.getMenuName())
-                .menuPrice(menu.getMenuPrice())
-                .menuCalory(menu.getMenuCalory())
-                .imgSrc(image.getImgUrl())
-                .build();
-    }
 }
