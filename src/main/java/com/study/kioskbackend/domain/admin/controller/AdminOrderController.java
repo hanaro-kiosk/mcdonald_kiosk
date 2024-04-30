@@ -1,7 +1,9 @@
 package com.study.kioskbackend.domain.admin.controller;
 
+import com.study.kioskbackend.domain.admin.dto.OrderEditRequestDto;
 import com.study.kioskbackend.domain.admin.dto.OrderResponseDto;
 import com.study.kioskbackend.domain.admin.service.AdminOrderService;
+import com.study.kioskbackend.domain.order.entity.Order;
 import com.study.kioskbackend.global.common.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,7 +21,10 @@ public class AdminOrderController {
         return ResponseDto.success(adminOrderService.getOrderList(page));
     }
 
-//    @PatchMapping("/order/{id}")
-//    public ResponseDto<Order> editOrder(@PathVariable("id") int id, @RequestBody )
+    @PatchMapping("/order/{id}")
+    public ResponseDto<Void> editOrder(@PathVariable("id") Long id, @RequestBody OrderEditRequestDto orderEditRequestDto) {
+        adminOrderService.editOrder(id,orderEditRequestDto);
+        return ResponseDto.successWithNoData();
+    }
 
 }
