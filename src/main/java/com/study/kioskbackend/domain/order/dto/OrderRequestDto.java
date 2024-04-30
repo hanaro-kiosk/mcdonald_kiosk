@@ -19,13 +19,13 @@ public class OrderRequestDto {
 
     public Order toEntity(int orderNumber) {
         return Order.builder()
-                .order_code(UUID.randomUUID().toString())
-                .order_price(totalPrice)
-                .order_count(totalCount)
-                .order_number(orderNumber)
-                .order_status(OrderStatus.결제완료)
-                .order_time(LocalDateTime.now())
-                .is_deleted(false)
+                .orderCode(UUID.randomUUID().toString())
+                .orderPrice(totalPrice)
+                .orderCount(totalCount)
+                .orderNumber(orderNumber)
+                .orderStatus(OrderStatus.결제완료)
+                .orderTime(LocalDateTime.now())
+                .isDeleted(false)
                 .build();
     }
 }

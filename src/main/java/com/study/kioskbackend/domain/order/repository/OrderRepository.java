@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
-    @Query(value = "SELECT o.order_number FROM Order o WHERE DATE(o.order_time) = :orderTime ORDER BY o.order_number DESC limit 1")
+    @Query(value = "SELECT o.orderNumber FROM Order o WHERE DATE(o.orderTime) = :orderTime ORDER BY o.orderNumber DESC limit 1")
     Optional<Integer> findLatestOrderNumber(@Param("orderTime") LocalDate orderTime);
 }

@@ -17,23 +17,23 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long order_idx;
+    private Long orderIdx;
 
-    private String order_code;
+    private String orderCode;
 
-    private int order_price;
+    private int orderPrice;
 
-    private int order_count;
+    private int orderCount;
 
-    private int order_number;
+    private int orderNumber;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus order_status;
+    private OrderStatus orderStatus;
 
-    private LocalDateTime order_time;
+    private LocalDateTime orderTime;
 
-    private LocalDateTime order_update_date;
+    private LocalDateTime orderUpdateDate;
 
-    private Boolean is_deleted;
+    private Boolean isDeleted;
 
 }
