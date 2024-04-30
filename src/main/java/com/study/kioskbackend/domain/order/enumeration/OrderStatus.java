@@ -1,4 +1,4 @@
-package com.study.kioskbackend.global.common;
+package com.study.kioskbackend.domain.order.enumeration;
 
 public enum OrderStatus {
     결제완료,

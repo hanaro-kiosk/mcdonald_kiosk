@@ -1,6 +1,6 @@
 package com.study.kioskbackend.domain.order.entity;
 
-import com.study.kioskbackend.global.common.OrderStatus;
+import com.study.kioskbackend.domain.order.enumeration.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

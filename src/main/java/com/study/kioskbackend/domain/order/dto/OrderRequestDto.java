@@ -1,7 +1,7 @@
 package com.study.kioskbackend.domain.order.dto;
 
 import com.study.kioskbackend.domain.order.entity.Order;
-import com.study.kioskbackend.global.common.OrderStatus;
+import com.study.kioskbackend.domain.order.enumeration.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,6 @@ public class OrderRequestDto {
 
     private int totalCount;
     private int totalPrice;
-
 
     public Order toEntity(int orderNumber) {
         return Order.builder()
