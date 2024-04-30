@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
     @Query(value = "SELECT m FROM Menu m WHERE m.menuRecommend = TRUE")
