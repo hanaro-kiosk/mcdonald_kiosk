@@ -7,6 +7,8 @@ import com.study.kioskbackend.global.common.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -16,7 +18,7 @@ public class OrderService {
     public ResponseDto<Order> order(OrderRequestDto orderRequestDto) {
 
         try {
-            int orderNum = orderRepository.findLatestOrderNumber().orElse(1) + 1;
+            int orderNum = orderRepository.findLatestOrderNumber(LocalDate.now()).orElse(1) + 1;
             Order order = orderRepository.save(orderRequestDto.toEntity(orderNum));
             return ResponseDto.success(order);
         } catch (Exception e) {
