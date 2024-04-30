@@ -8,16 +8,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Image {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imgIdx;
+    private Long categoryIdx;
     @Column(nullable = false)
-    private String imgName;
-    @Column(nullable = false)
-    private String imgUrl;
-
-    public void update(String imgUrl){
-        this.imgUrl = imgUrl;
-    }
+    private String categoryTitle;
 }
