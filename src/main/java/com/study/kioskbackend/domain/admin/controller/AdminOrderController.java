@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminOrderController {
 
 
+    @GetMapping("/order")
+    public getOrderList() {
 
+    }
 
 }
