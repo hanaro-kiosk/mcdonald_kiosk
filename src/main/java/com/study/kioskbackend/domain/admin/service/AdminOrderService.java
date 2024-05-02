@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +20,13 @@ public class AdminOrderService {
 
     private final OrderRepository orderRepository;
 
+    @Transactional(readOnly = true)
     public Page<OrderResponseDto> getOrderList(int page) {
         Pageable paging = PageRequest.of(page, 5, Sort.by( Sort.Order.desc("orderTime")));
         return orderRepository.findAllOrderList(paging).map(OrderResponseDto::toDto);
     }
 
+    @Transactional
     public ResponseDto<Order> editOrder(Long id, OrderEditRequestDto orderEditRequestDto) {
         Order order = orderRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
 
@@ -32,11 +35,13 @@ public class AdminOrderService {
         return ResponseDto.success(order);
     }
 
+    @Transactional
     public ResponseDto<OrderResponseDto> orderDetail(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(()->  new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
         return ResponseDto.success(OrderResponseDto.toDto(order));
     }
 
+    @Transactional
     public ResponseDto<Void> deleteOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(()->  new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
         order.deleteOrder(id);
