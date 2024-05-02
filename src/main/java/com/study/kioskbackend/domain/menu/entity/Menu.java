@@ -36,4 +36,12 @@ public class Menu {
     private LocalDateTime menuUpdateDate;
     @Column(nullable = false)
     private boolean isDeleted;
+
+    public void update(String menuName, Long categoryIdx, int menuPrice, int menuCalory){
+        this.menuName = menuName;
+        this.categoryIdx = categoryIdx;
+        this.menuPrice = menuPrice;
+        this.menuCalory = menuCalory;
+        this.menuUpdateDate = LocalDateTime.now();
+    }
 }

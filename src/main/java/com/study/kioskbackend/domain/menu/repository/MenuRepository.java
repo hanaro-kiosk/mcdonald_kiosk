@@ -4,12 +4,17 @@ import com.study.kioskbackend.domain.menu.entity.Menu;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
-    @Query(value = "SELECT m FROM Menu m WHERE m.menuRecommend = TRUE")
+    @Query(value = "SELECT m FROM Menu m WHERE m.menuRecommend = TRUE And m.isDeleted = FALSE")
     Page<Menu> findByMenuRecommend(Pageable pageable);
-    Page<Menu> findByCategoryIdx(Long category_idx, Pageable pageable);
+
+    @Query(value = "SELECT m FROM Menu m WHERE m.categoryIdx = :category_idx And m.isDeleted = FALSE")
+    Page<Menu> findByCategoryIdxAndIsDeleted(Long category_idx, Pageable pageable);
+
+    @Modifying
+    @Query(value = "UPDATE Menu m SET m.isDeleted = TRUE WHERE m.menuIdx = :menuIdx")
+    void deleteById(Long menuIdx);
 }
