@@ -63,6 +63,7 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //계정의 권한 목록을 리턴함.
         Set<GrantedAuthority> roles = new HashSet<>();
+        System.out.println("sssuserRoe>>"+userRole.getValue());
         roles.add(new SimpleGrantedAuthority(userRole.getValue()));
         return roles;
     }

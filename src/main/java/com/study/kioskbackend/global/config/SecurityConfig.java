@@ -3,6 +3,7 @@ package com.study.kioskbackend.global.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,9 +33,10 @@ public class SecurityConfig  {
 
         http     //HTTP요청에 대한 보안설정을 시작한다.
                 .authorizeHttpRequests( (auth) -> auth
-                        //루트 밑의 모든 경로에 대한 모든 요청을 허가한다.
-                        .requestMatchers( new AntPathRequestMatcher("/**") )
-                        .permitAll());
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/order").authenticated()
+                        .anyRequest().permitAll()
+                );
 
         //스프링 시큐리티에서 세션 관리 상태가 없음으로 구성한다.
         http.sessionManagement(sessionManagement ->
