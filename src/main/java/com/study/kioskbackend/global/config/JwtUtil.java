@@ -50,14 +50,15 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
-    //JWT 토큰에서 인증 정보 조회
+
     public Authentication getAuthentication(String token){
-        String email = Jwts.parser().setSigningKey(secretKey)
-                .parseClaimsJws(token).getBody().getSubject();
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        String userName = Jwts.parser().setSigningKey(secretKey)
+                .parseClaimsJws(token).getBody().get("userName", String.class);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
         return new UsernamePasswordAuthenticationToken(
                 userDetails, "", userDetails.getAuthorities());
     }
+
     //Request의 Header에서 token값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값"
     public String resolveToken(HttpServletRequest request){
         return request.getHeader("X-AUTH-TOKEN");

@@ -32,6 +32,15 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public ResponseDto<Void> join(JoinRequestDto request){
+        // 아이디로 이미 가입된 사용자가 있는지 확인
+        Optional<User> existingUser = userRepository.findByUserId(request.getUserId());
+
+        // 이미 가입된 사용자가 있는 경우
+        if (existingUser.isPresent()) {
+            return ResponseDto.fail("ERROR_CODE", "중복된 아이디가 존재합니다");
+        }
+
+        // 가입된 사용자가 없는 경우 회원가입 처리
         User user = User.builder()
                 .userId(request.getUserId())
                 .userPw(request.getUserPw())
@@ -71,15 +80,15 @@ public class UserService implements UserDetailsService {
         // 아이디로 사용자를 조회
         Optional<User> optionalUser = userRepository.findByUserId(userId);
 
-        // 조회된 사용자가 없다면 예외를 던집니다.
-        User user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + userId));
+        // 조회된 사용자가 없다면 예외를 던짐
+        User user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다"));
 
         // 비밀번호 일치 여부 확인
         if (!passwordEncoder.matches(password, user.getUserPw())) {
             throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         }
 
-        return user;
+        return optionalUser.get();
     }
 
 

@@ -1,5 +1,7 @@
 package com.study.kioskbackend.global;
 
+import com.study.kioskbackend.domain.user.dto.UserDataDto;
+import com.study.kioskbackend.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +17,6 @@ public class ResponseDto<T> {
         return new ResponseDto<>(true, data, null);
     }
 
-
     public static <T> ResponseDto<T> successHeader(T data, HttpHeaders headers) {
         return new ResponseDto<>(true, data, null);
     }
@@ -26,11 +27,6 @@ public class ResponseDto<T> {
 
     public static <T> ResponseDto<T> fail(String code, String message) {
         return new ResponseDto<>(false, null, new Error(code, message));
-    }
-
-    // 토큰만 반환하는 메서드
-    public static ResponseDto<String> token(String token) {
-        return new ResponseDto<>(true, token, null);
     }
 
     @Getter

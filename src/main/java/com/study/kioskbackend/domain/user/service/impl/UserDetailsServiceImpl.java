@@ -1,16 +1,14 @@
 package com.study.kioskbackend.domain.user.service.impl;
 
-import com.study.kioskbackend.domain.user.entity.User;
 import com.study.kioskbackend.domain.user.repository.UserRepository;
+import com.study.kioskbackend.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,5 +28,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .roles(userEntity.getUserRole().toString()) // 또는 authorities() 메서드를 사용하여 권한을 설정할 수 있습니다.
                 .build();
     }
-
 }
