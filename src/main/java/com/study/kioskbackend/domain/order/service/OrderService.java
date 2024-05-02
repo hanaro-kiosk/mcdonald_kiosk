@@ -12,11 +12,11 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
 
+    @Transactional
     public ResponseDto<Order> order(OrderRequestDto orderRequestDto) {
 
         try {
@@ -28,11 +28,13 @@ public class OrderService {
         }
     }
 
+    @Transactional(readOnly = true)
     public ResponseDto<Integer> getUserPoint(String userId) {
         //User user = orderRepository.findByUserId(userId);
         return ResponseDto.success(1234);
     }
 
+    @Transactional
     public ResponseDto<Void> updateUserPoint(int point) {
         //User user = userRepository.findById(userIdx);
         //user.setUserPoint(point);

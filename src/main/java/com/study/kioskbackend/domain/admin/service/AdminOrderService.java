@@ -35,7 +35,7 @@ public class AdminOrderService {
         return ResponseDto.success(order);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ResponseDto<OrderResponseDto> orderDetail(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(()->  new IllegalArgumentException("주문 목록을 찾을 수 없습니다."));
         return ResponseDto.success(OrderResponseDto.toDto(order));
