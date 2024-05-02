@@ -17,6 +17,7 @@ public class OrderResponseDto {
     private int idx;
     private String orderCode;
     private int orderPrice;
+    private int orderCount;
     private int orderNumber;
     private OrderStatus orderStatus;
     private LocalDateTime orderTime;
@@ -26,6 +27,7 @@ public class OrderResponseDto {
                 .idx(order.getOrderIdx().intValue())
                 .orderCode(order.getOrderCode())
                 .orderPrice(order.getOrderPrice())
+                .orderCount(order.getOrderCount())
                 .orderNumber(order.getOrderNumber())
                 .orderStatus(order.getOrderStatus())
                 .orderTime(order.getOrderTime())
