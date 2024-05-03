@@ -32,7 +32,7 @@ public class OrderService {
                 userRepository.save(currUser);
                 return ResponseDto.success(Order.toDto(order,currUser.getUserPoint()));
             }
-            return ResponseDto.successWithNoData();
+            return ResponseDto.success(Order.toDto(order,-1));
         } catch (Exception e) {
             return ResponseDto.fail("500", "주문목록 불러오기 실패");
         }
