@@ -15,7 +15,6 @@ public class ResponseDto<T> {
         return new ResponseDto<>(true, data, null);
     }
 
-
     public static <T> ResponseDto<T> successHeader(T data, HttpHeaders headers) {
         return new ResponseDto<>(true, data, null);
     }
@@ -35,5 +34,4 @@ public class ResponseDto<T> {
         private String message;
 
     }
-
 }

@@ -4,9 +4,8 @@ import com.study.kioskbackend.domain.user.dto.JoinRequestDto;
 import com.study.kioskbackend.domain.user.entity.User;
 import com.study.kioskbackend.domain.user.enumeration.UserRole;
 import com.study.kioskbackend.domain.user.repository.UserRepository;
-import com.study.kioskbackend.global.ResponseDto;
+import com.study.kioskbackend.global.common.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class UserService  {
+public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -59,7 +58,6 @@ public class UserService  {
             return ResponseDto.fail("ERROR_CODE", "회원가입 실패: " + e.getMessage());
         }
     }
-
 
     public User findByUserIdAndPassword(String userId, String password) {
         // 아이디로 사용자를 조회
