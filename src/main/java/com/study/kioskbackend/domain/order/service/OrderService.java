@@ -1,6 +1,7 @@
 package com.study.kioskbackend.domain.order.service;
 
 import com.study.kioskbackend.domain.order.dto.OrderRequestDto;
+import com.study.kioskbackend.domain.order.dto.OrderResponseDto;
 import com.study.kioskbackend.domain.order.entity.Order;
 import com.study.kioskbackend.domain.order.repository.OrderRepository;
 import com.study.kioskbackend.domain.user.entity.User;
@@ -20,28 +21,21 @@ public class OrderService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ResponseDto<Order> order(OrderRequestDto orderRequestDto) {
-
+    public ResponseDto<OrderResponseDto> order(OrderRequestDto orderRequestDto, User user) {
         try {
             int orderNum = orderRepository.findLatestOrderNumber(LocalDate.now()).orElse(1) + 1;
             Order order = orderRepository.save(orderRequestDto.toEntity(orderNum));
-            return ResponseDto.success(order);
+            if(user != null) {
+                User currUser = userRepository.findByUserId(user.getUserId()).orElseThrow(() -> new IllegalArgumentException("일치하는 유저가 없습니다."));
+                int point = (int) (currUser.getUserPoint()+(orderRequestDto.getTotalPrice()*0.01));
+                currUser.updatePoint(point);
+                userRepository.save(currUser);
+                return ResponseDto.success(Order.toDto(order,currUser.getUserPoint()));
+            }
+            return ResponseDto.successWithNoData();
         } catch (Exception e) {
             return ResponseDto.fail("500", "주문목록 불러오기 실패");
         }
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserPoint(String userId) {
-        return userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("일치하는 유저가 없습니다."));
-    }
-
-
-    @Transactional
-    public ResponseDto<Void> updateUserPoint(int point,String userId) {
-        User user = userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("일치하는 유저가 없습니다."));
-        user.setUserPoint(point);
-        return ResponseDto.successWithNoData();
     }
 
 

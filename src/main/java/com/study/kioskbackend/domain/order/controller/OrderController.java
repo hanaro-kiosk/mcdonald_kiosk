@@ -1,6 +1,7 @@
 package com.study.kioskbackend.domain.order.controller;
 
 import com.study.kioskbackend.domain.order.dto.OrderRequestDto;
+import com.study.kioskbackend.domain.order.dto.OrderResponseDto;
 import com.study.kioskbackend.domain.order.entity.Order;
 import com.study.kioskbackend.domain.order.service.OrderService;
 import com.study.kioskbackend.domain.user.entity.User;
@@ -17,17 +18,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/order")
-    public ResponseDto<Order> order(@RequestBody OrderRequestDto orderRequestDto) {
-        return orderService.order(orderRequestDto);
+    public ResponseDto<OrderResponseDto> order(@RequestBody OrderRequestDto orderRequestDto, @AuthenticationPrincipal User user) {
+        return orderService.order(orderRequestDto,user);
     }
 
-    @PatchMapping("/order")
-    public ResponseDto<Void> updateUserPoint(@RequestParam("point") int point,@AuthenticationPrincipal User user) {
-        return orderService.updateUserPoint(point,user.getUserId());
-    }
-
-    @GetMapping("/order")
-    public ResponseDto<User> getUserPoint(@AuthenticationPrincipal User user) {
-        return ResponseDto.success(orderService.getUserPoint(user.getUserId()));
-    }
 }
