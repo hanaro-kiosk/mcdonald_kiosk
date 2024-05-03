@@ -37,3 +37,6 @@ out/
 .vscode/
 
 src/main/**/application.properties
+
+### macOS ###
+.DS_Store
