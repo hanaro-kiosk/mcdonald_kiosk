@@ -3,6 +3,8 @@ package com.study.kioskbackend.domain.order.service;
 import com.study.kioskbackend.domain.order.dto.OrderRequestDto;
 import com.study.kioskbackend.domain.order.entity.Order;
 import com.study.kioskbackend.domain.order.repository.OrderRepository;
+import com.study.kioskbackend.domain.user.entity.User;
+import com.study.kioskbackend.domain.user.repository.UserRepository;
 import com.study.kioskbackend.global.common.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.time.LocalDate;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public ResponseDto<Order> order(OrderRequestDto orderRequestDto) {
@@ -29,15 +32,15 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto<Integer> getUserPoint(String userId) {
-        //User user = orderRepository.findByUserId(userId);
-        return ResponseDto.success(1234);
+    public User getUserPoint(String userId) {
+        return userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("일치하는 유저가 없습니다."));
     }
 
+
     @Transactional
-    public ResponseDto<Void> updateUserPoint(int point) {
-        //User user = userRepository.findById(userIdx);
-        //user.setUserPoint(point);
+    public ResponseDto<Void> updateUserPoint(int point,String userId) {
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("일치하는 유저가 없습니다."));
+        user.setUserPoint(point);
         return ResponseDto.successWithNoData();
     }
 
