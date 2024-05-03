@@ -4,9 +4,8 @@ import com.study.kioskbackend.domain.user.dto.JoinRequestDto;
 import com.study.kioskbackend.domain.user.entity.User;
 import com.study.kioskbackend.domain.user.enumeration.UserRole;
 import com.study.kioskbackend.domain.user.repository.UserRepository;
-import com.study.kioskbackend.global.ResponseDto;
+import com.study.kioskbackend.global.common.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -58,22 +57,6 @@ public class UserService implements UserDetailsService {
         } catch (Exception e) {
             return ResponseDto.fail("ERROR_CODE", "회원가입 실패: " + e.getMessage());
         }
-    }
-
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserId(username)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username));
-        return new org.springframework.security.core.userdetails.User(
-                user.getUserId(),
-                user.getUserPw(),
-                true,
-                true,
-                true,
-                true,
-                AuthorityUtils.createAuthorityList(user.getUserRole().toString())
-        );
     }
 
     public User findByUserIdAndPassword(String userId, String password) {

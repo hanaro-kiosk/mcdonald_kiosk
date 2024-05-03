@@ -17,7 +17,7 @@ public class UserResponseDto {
     private String userPw;
     private String userName;
     private UserRole userRole;
-    private LocalDateTime userCreateTime;
+    private LocalDateTime userCreateDate;
 
     public static UserResponseDto fromEntity(User user){
         return UserResponseDto.builder()
@@ -25,6 +25,8 @@ public class UserResponseDto {
                 .userId(user.getUserId())
                 .userPw(user.getUserPw())
                 .userName(user.getUsername())
+                .userRole(user.getUserRole())
+                .userCreateDate(user.getUserCreateDate())
                 .build();
     }
 }

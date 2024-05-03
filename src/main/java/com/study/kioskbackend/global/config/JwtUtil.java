@@ -51,10 +51,11 @@ public class JwtUtil {
                 .compact();
     }
 
+    //JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token){
-        String userName = Jwts.parser().setSigningKey(secretKey)
-                .parseClaimsJws(token).getBody().get("userName", String.class);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+        String email = Jwts.parser().setSigningKey(secretKey)
+                .parseClaimsJws(token).getBody().getSubject();
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         return new UsernamePasswordAuthenticationToken(
                 userDetails, "", userDetails.getAuthorities());
     }

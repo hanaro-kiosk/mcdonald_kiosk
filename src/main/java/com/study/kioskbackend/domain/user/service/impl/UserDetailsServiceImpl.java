@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return org.springframework.security.core.userdetails.User.builder()
                 .username(userEntity.getUserId())
                 .password(userEntity.getUserPw())
-                .roles(userEntity.getUserRole().toString()) // 또는 authorities() 메서드를 사용하여 권한을 설정할 수 있습니다.
+                .roles(userEntity.getUserRole().getValue()) // 또는 authorities() 메서드를 사용하여 권한을 설정할 수 있습니다.
                 .build();
     }
 }

@@ -1,7 +1,5 @@
-package com.study.kioskbackend.global;
+package com.study.kioskbackend.global.common;
 
-import com.study.kioskbackend.domain.user.dto.UserDataDto;
-import com.study.kioskbackend.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpHeaders;

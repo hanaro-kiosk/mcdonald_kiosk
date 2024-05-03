@@ -1,5 +1,6 @@
 package com.study.kioskbackend.domain.user.entity;
 
+import com.study.kioskbackend.domain.admin.dto.UserEditRequestDto;
 import com.study.kioskbackend.domain.user.enumeration.UserRole;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -95,5 +96,16 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void editUser(Long userIdx, UserEditRequestDto req) {
+        this.userIdx = userIdx;
+        this.userName = req.getUserName();
+    }
+
+    public void deleteOrder(Long userIdx) {
+        this.userIdx = userIdx;
+        this.isDeleted = true;
+
     }
 }
