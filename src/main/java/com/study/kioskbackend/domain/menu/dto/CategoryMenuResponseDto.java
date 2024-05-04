@@ -16,7 +16,7 @@ public class CategoryMenuResponseDto {
     private int menuCalory;
 
     public CategoryMenuResponseDto(Menu menu, String imageUrl){
-       this.menuIdx = menu.getCategoryIdx();
+       this.menuIdx = menu.getMenuIdx();
        this.menuName = menu.getMenuName();
        this.imgSrc = imageUrl;
        this.menuPrice = menu.getMenuPrice();
