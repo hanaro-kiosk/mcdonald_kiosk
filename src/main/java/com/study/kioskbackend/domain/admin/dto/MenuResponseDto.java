@@ -34,6 +34,6 @@ public class MenuResponseDto {
         this.menuCalory = menu.getMenuCalory();
         this.menuCode = menu.getMenuCode();
         this.menuRecommend = menu.isMenuRecommend();
-        this.menuUpdateDate = menu.getMenuUpdateDate();
+        this.menuUpdateDate = menu.getMenuUpdateDate() ==null ? menu.getMenuCreateDate() : menu.getMenuUpdateDate();
     }
 }

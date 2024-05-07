@@ -40,7 +40,7 @@ public class AdminMenuService {
         Page<Menu> menusEntity = menuRepository.findByCategoryIdxAndIsDeleted(categoryIdx, pageable);
 
         return menusEntity.map((menu) -> new MenuResponseDto(menu,
-                        imageRepository.findById(menu.getMenuIdx())
+                        imageRepository.findById(menu.getImgIdx())
                                 .orElseThrow(() -> new IllegalArgumentException("이미지가 존재하지 않습니다.")).getImgUrl(),
                         categoryRepository.findById(menu.getCategoryIdx())
                                 .orElseThrow(() -> new IllegalArgumentException("카테고리가 존재하지 않습니다.")).getCategoryTitle()
@@ -76,7 +76,7 @@ public class AdminMenuService {
     public Menu updateMenu(final Long menuIdx, MenuUpdateRequestDto dto){
         Menu menu = menuRepository.findById(menuIdx)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
-        menu.update(dto.getMenuName(), dto.getMenuCategory(), dto.getMenuPrice(), dto.getMenuCalory());
+        menu.update(dto.getMenuName(), dto.getMenuCategory(), dto.getMenuPrice(), dto.getMenuCalory(), dto.isMenuRecommend());
 
         return menu;
     }

@@ -37,11 +37,12 @@ public class Menu {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    public void update(String menuName, Long categoryIdx, int menuPrice, int menuCalory){
+    public void update(String menuName, Long categoryIdx, int menuPrice, int menuCalory, boolean menuRecommend){
         this.menuName = menuName;
         this.categoryIdx = categoryIdx;
         this.menuPrice = menuPrice;
         this.menuCalory = menuCalory;
+        this.menuRecommend = menuRecommend;
         this.menuUpdateDate = LocalDateTime.now();
     }
 }

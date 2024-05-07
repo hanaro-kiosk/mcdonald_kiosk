@@ -10,4 +10,5 @@ public class MenuUpdateRequestDto {
     private int menuPrice;
     private Long menuCategory;
     private int menuCalory;
+    private boolean menuRecommend;
 }
