@@ -22,11 +22,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("아이디에 맞는 회원 정보를 찾을 수 없습니다."));
 
         // User 엔티티에서 UserDetails를 생성하여 반환
-        return User.builder()
-                .userId(userEntity.getUserId())
-                .userName(userEntity.getUsername())
-                .userPw(userEntity.getUserPw())
-                .userRole(userEntity.getUserRole()) // 또는 authorities() 메서드를 사용하여 권한을 설정할 수 있습니다.
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(userEntity.getUserId())
+                .password(userEntity.getUserPw())
+                .roles(userEntity.getUserRole().getValue()) // 또는 authorities() 메서드를 사용하여 권한을 설정할 수 있습니다.
                 .build();
     }
 }
