@@ -60,6 +60,10 @@ public class User implements UserDetails {
     public User() {
     }
 
+    public void updatePoint(int point) {
+        this.userPoint = point;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //계정의 권한 목록을 리턴함.

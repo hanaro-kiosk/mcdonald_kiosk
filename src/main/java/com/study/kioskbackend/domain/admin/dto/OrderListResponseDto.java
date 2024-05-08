@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class OrderResponseDto {
+public class OrderListResponseDto {
 
     private int idx;
     private String orderCode;
@@ -22,8 +22,8 @@ public class OrderResponseDto {
     private OrderStatus orderStatus;
     private LocalDateTime orderTime;
 
-    public static OrderResponseDto toDto(Order order){
-        return OrderResponseDto.builder()
+    public static OrderListResponseDto toDto(Order order){
+        return OrderListResponseDto.builder()
                 .idx(order.getOrderIdx().intValue())
                 .orderCode(order.getOrderCode())
                 .orderPrice(order.getOrderPrice())

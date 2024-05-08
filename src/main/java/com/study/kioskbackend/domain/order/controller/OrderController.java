@@ -1,10 +1,13 @@
 package com.study.kioskbackend.domain.order.controller;
 
 import com.study.kioskbackend.domain.order.dto.OrderRequestDto;
+import com.study.kioskbackend.domain.order.dto.OrderResponseDto;
 import com.study.kioskbackend.domain.order.entity.Order;
 import com.study.kioskbackend.domain.order.service.OrderService;
+import com.study.kioskbackend.domain.user.entity.User;
 import com.study.kioskbackend.global.common.ResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,17 +18,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/order")
-    public ResponseDto<Order> order(@RequestBody OrderRequestDto orderRequestDto) {
-        return orderService.order(orderRequestDto);
+    public ResponseDto<OrderResponseDto> order(@RequestBody OrderRequestDto orderRequestDto, @AuthenticationPrincipal User user) {
+        return orderService.order(orderRequestDto,user);
     }
 
-    @PatchMapping("/order")
-    public ResponseDto<Void> updateUserPoint(@RequestParam("point") int point) {
-        return orderService.updateUserPoint(point);
-    }
-
-    @GetMapping("/order")
-    public ResponseDto<Integer> getUserPoint() {
-        return orderService.getUserPoint("user1");
-    }
 }

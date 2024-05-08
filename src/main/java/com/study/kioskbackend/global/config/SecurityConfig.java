@@ -29,12 +29,12 @@ public class SecurityConfig  {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 //csrf보안 비활성화한다. RESTful API 서버이므로
-                .csrf( auth -> auth.disable() );
+                .csrf( auth -> auth.disable() )
+                .cors(auth->auth.configurationSource(corsConfigurationSource()));
 
         http     //HTTP요청에 대한 보안설정을 시작한다.
                 .authorizeHttpRequests( (auth) -> auth
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/order").authenticated()
                         .anyRequest().permitAll()
                 );
 
