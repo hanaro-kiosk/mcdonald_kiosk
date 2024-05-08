@@ -44,7 +44,7 @@ public class UserController {
         // 토큰 생성
         String token = jwtTokenProvider.createToken(user.getUserId(), user.getUserRole());
 
-        UserDataDto userDataDto = new UserDataDto(token, user.getUsername());
+        UserDataDto userDataDto = new UserDataDto(token, user.getUserName());
         // 토큰을 포함한 응답 반환
         return ResponseDto.success(userDataDto);
     }

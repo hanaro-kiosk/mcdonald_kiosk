@@ -24,7 +24,7 @@ public class UserResponseDto {
                 .idx(user.getUserIdx().intValue())
                 .userId(user.getUserId())
                 .userPw(user.getUserPw())
-                .userName(user.getUsername())
+                .userName(user.getUserName())
                 .userRole(user.getUserRole())
                 .userCreateDate(user.getUserCreateDate())
                 .build();
