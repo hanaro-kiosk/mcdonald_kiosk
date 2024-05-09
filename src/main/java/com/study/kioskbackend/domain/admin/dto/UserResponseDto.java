@@ -17,6 +17,7 @@ public class UserResponseDto {
     private String userPw;
     private String userName;
     private UserRole userRole;
+    private int userPoint;
     private LocalDateTime userCreateDate;
 
     public static UserResponseDto fromEntity(User user){
@@ -26,6 +27,7 @@ public class UserResponseDto {
                 .userPw(user.getUserPw())
                 .userName(user.getUserName())
                 .userRole(user.getUserRole())
+                .userPoint(user.getUserPoint())
                 .userCreateDate(user.getUserCreateDate())
                 .build();
     }
