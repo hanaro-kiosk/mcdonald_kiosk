@@ -68,7 +68,11 @@ public class User {
 
     public void editUser(Long userIdx, UserEditRequestDto req) {
         this.userIdx = userIdx;
+        this.userId = req.getUserId();
+        this.userPw = req.getUserPw();
         this.userName = req.getUserName();
+        this.userRole = req.getUserRole();
+        this.userPoint = req.getUserPoint();
     }
 
     public void deleteOrder(Long userIdx) {
