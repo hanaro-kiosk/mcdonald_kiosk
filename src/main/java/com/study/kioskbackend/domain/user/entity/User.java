@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_idx")
@@ -64,44 +65,6 @@ public class User implements UserDetails {
         this.userPoint = point;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        //계정의 권한 목록을 리턴함.
-        Set<GrantedAuthority> roles = new HashSet<>();
-        System.out.println("sssuserRoe>>"+userRole.getValue());
-        roles.add(new SimpleGrantedAuthority(userRole.getValue()));
-        return roles;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.userName;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.userPw;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
     public void editUser(Long userIdx, UserEditRequestDto req) {
         this.userIdx = userIdx;

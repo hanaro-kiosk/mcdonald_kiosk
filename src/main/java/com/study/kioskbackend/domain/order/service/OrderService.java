@@ -4,6 +4,7 @@ import com.study.kioskbackend.domain.order.dto.OrderRequestDto;
 import com.study.kioskbackend.domain.order.dto.OrderResponseDto;
 import com.study.kioskbackend.domain.order.entity.Order;
 import com.study.kioskbackend.domain.order.repository.OrderRepository;
+import com.study.kioskbackend.domain.user.entity.PrincipalDetails;
 import com.study.kioskbackend.domain.user.entity.User;
 import com.study.kioskbackend.domain.user.repository.UserRepository;
 import com.study.kioskbackend.global.common.ResponseDto;
@@ -21,7 +22,7 @@ public class OrderService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ResponseDto<OrderResponseDto> order(OrderRequestDto orderRequestDto, User user) {
+    public ResponseDto<OrderResponseDto> order(OrderRequestDto orderRequestDto, PrincipalDetails user) {
         try {
             int orderNum = orderRepository.findLatestOrderNumber(LocalDate.now()).orElse(1) + 1;
             Order order = orderRepository.save(orderRequestDto.toEntity(orderNum));
