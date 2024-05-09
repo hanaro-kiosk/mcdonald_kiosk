@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,11 @@ public class OrderService {
     @Transactional
     public ResponseDto<OrderResponseDto> order(OrderRequestDto orderRequestDto, PrincipalDetails user) {
         try {
-            int orderNum = orderRepository.findLatestOrderNumber(LocalDate.now()).orElse(1) + 1;
+            Optional<Order> sortedByDateOrder = orderRepository.findLatestOrderNumberByOrderTime(LocalDate.now());
+            int orderNum = 1;
+            if(sortedByDateOrder.isPresent()){
+                 orderNum = sortedByDateOrder.get().getOrderNumber() + 1;
+            }
             Order order = orderRepository.save(orderRequestDto.toEntity(orderNum));
             if(user != null) {
                 User currUser = userRepository.findByUserId(user.getUserId()).orElseThrow(() -> new IllegalArgumentException("일치하는 유저가 없습니다."));
